@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.pytest_cache/
+
+# Virtual environments
+.venv/
+venv/
+llm_env/
+env/
+
+# HuggingFace model cache (large weights should not be committed)
+.cache/
+models/
+*.bin
+*.safetensors
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Personal recording aid (not part of submission)
+录屏提词卡.md
