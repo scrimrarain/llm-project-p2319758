@@ -25,7 +25,7 @@
 | 3 | `cd llm-project-<学号>` | "进入项目目录。" |
 | 4 | `python -m venv venv` 然后 `source venv/bin/activate` | "创建并激活虚拟环境，隔离项目依赖。" |
 | 5 | `pip install --upgrade pip` → `pip install -r requirements.txt` | "一键安装全部依赖：torch、transformers、accelerate，还有 4-bit 量化用的 bitsandbytes。"（装完指着成功的提示）|
-| 6 | `huggingface-cli login`，粘贴你的 read token | "Gemma 是 gated 模型，需要 HuggingFace 账号接受许可后用 token 登录，才能下载权重。" |
+| 6 | `huggingface-cli login`，粘贴你的 read token（免费注册即可） | "我们的模型 Qwen2.5-1.5B 是开放权重，不用登录也能下载；不过作业要求展示 HuggingFace 登录，这里用免费账号登录一下。将来如果想换 gated 模型比如 Gemma，用 LLM_MODEL_ID 环境变量切换就行。" |
 | 7 | 显示登录成功提示 | "登录成功，环境准备完毕。" |
 
 ---
@@ -37,7 +37,7 @@
 | 步骤 | 屏幕操作 | 口播 |
 |---|---|---|
 | 1 | 打开 VS Code 的 `src/model.py` | "这是我们的核心实现文件，两个函数：load_model 和 get_response。" |
-| 2 | 指着 `load_model()` 的量化分支 | "这里做了硬件自适应：有 NVIDIA GPU 就用 bitsandbytes 的 4-bit NF4 量化，权重从 5GB 压到 1.7GB；苹果电脑没有 bitsandbytes，就退回 fp16 跑在 MPS 上。" |
+| 2 | 指着 `load_model()` 的量化分支 | "这里做了硬件自适应：默认加载 Qwen2.5-1.5B 这个开放权重模型，有 NVIDIA GPU 就用 bitsandbytes 的 4-bit NF4 量化，权重从 5GB 压到 1.7GB；苹果电脑没有 bitsandbytes，就退回 fp16 跑在 MPS 上。" |
 | 3 | 指着 `get_response()` | "这里先用 apply_chat_template 把问题包成模型训练时见过的对话格式，然后采样生成，最后只切出模型新生成的 token，把用户的问题从回答里去掉。" |
 | 4 | 终端运行 `python demo.py` | "运行根目录的 demo.py，进入交互对话。" |
 | 5 | 问 3 个问题：**factual**（What is the capital of France?）、**creative**（Write a haiku about artificial intelligence.）、**coding**（Write a Python function to calculate the factorial of a number.） | 每问一个就点评一句回答质量。 |

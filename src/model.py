@@ -1,7 +1,10 @@
 """Model loading and response generation for the LLM project (Assignment 1B).
 
 This is the main implementation file. It loads an open-weight instruct model
-(``google/gemma-2b-it`` by default) and answers questions with it.
+(``Qwen/Qwen2.5-1.5B-Instruct`` by default — no license/login required) and
+answers questions with it. Any other open-weight chat model can be swapped in
+with the ``LLM_MODEL_ID`` environment variable, e.g. the assignment's example
+model ``google/gemma-2b-it`` (which is gated and needs a HuggingFace token).
 
 Hardware-adaptive design
 ------------------------
@@ -14,10 +17,9 @@ picks the best strategy for the machine it runs on:
                        (bitsandbytes has no macOS build)
 - **CPU only**      -> full-precision weights as a slow fallback
 
-The model id can be overridden with the ``LLM_MODEL_ID`` environment variable
-so the same code works with any other open-weight model, e.g.::
+The model id can be overridden with the ``LLM_MODEL_ID`` environment variable::
 
-    LLM_MODEL_ID=Qwen/Qwen2.5-1.5B-Instruct python demo.py
+    LLM_MODEL_ID=google/gemma-2b-it python demo.py
 """
 
 import os
@@ -25,9 +27,10 @@ import os
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
-#: Default model id. The assignment suggests google/gemma-2b-it; the
-#: environment variable makes the choice explicit and testable.
-DEFAULT_MODEL_ID = os.environ.get("LLM_MODEL_ID", "google/gemma-2b-it")
+#: Default model id. Qwen2.5-1.5B-Instruct is open-weight (Apache-2.0) and
+#: needs no login; the environment variable lets graders or students switch
+#: to any other model, e.g. the assignment's google/gemma-2b-it.
+DEFAULT_MODEL_ID = os.environ.get("LLM_MODEL_ID", "Qwen/Qwen2.5-1.5B-Instruct")
 
 
 def _pick_device():

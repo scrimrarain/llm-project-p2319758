@@ -1,11 +1,13 @@
-# LLM Project — Gemma-2B Quantized Chatbot
+# LLM Project — Qwen2.5-1.5B Quantized Chatbot
 
 An end-to-end **Large Language Model (LLM) application** built for
 **AI — Assignment 1B**. It loads the open-weight instruction-tuned model
-[google/gemma-2b-it](https://huggingface.co/google/gemma-2b-it) (≈2.6 B
-parameters), applies **4-bit quantization** where the hardware supports it,
-and exposes a clean `load_model()` / `get_response()` interface plus an
-interactive demo and a unit-test suite.
+[Qwen/Qwen2.5-1.5B-Instruct](https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct)
+(1.5 B parameters, Apache-2.0 — **no login or license required**), applies
+**4-bit quantization** where the hardware supports it, and exposes a clean
+`load_model()` / `get_response()` interface plus an interactive demo and a
+unit-test suite. Any other open-weight model (e.g. the assignment's example
+`google/gemma-2b-it`) can be swapped in with one environment variable.
 
 > **Group members:** `p2319758` + `p2303357` — Final submission: **Nov 12**.
 
@@ -28,7 +30,8 @@ interactive demo and a unit-test suite.
 
 ## Features
 
-- Loads **Gemma-2B (instruction-tuned)** through HuggingFace Transformers.
+- Loads **Qwen2.5-1.5B (instruction-tuned, open weights)** through HuggingFace
+  Transformers — downloadable without a HuggingFace account.
 - **Hardware-adaptive loading** in `src/model.py`:
   - NVIDIA GPU → **4-bit NF4 quantization** (`bitsandbytes`) with
     `device_map="auto"` — the weights shrink from ~5 GB to ~1.7 GB.
@@ -44,8 +47,6 @@ interactive demo and a unit-test suite.
 - Git and a terminal
 - Recommended: an NVIDIA GPU with ≥8 GB VRAM (4-bit quantized).
   On Apple Silicon or CPU the same code runs in float16/fp32, just slower.
-- A [HuggingFace](https://huggingface.co) account that has **accepted the
-  Gemma license** (see below).
 
 ## Installation
 
@@ -75,14 +76,14 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-### 4. HuggingFace authentication
+### 4. (Optional) HuggingFace authentication
 
-`google/gemma-2b-it` is a **gated model** — the license must be accepted and a
-read token supplied:
+`Qwen/Qwen2.5-1.5B-Instruct` downloads without any login. A HuggingFace token
+is only needed if you switch to a gated model such as
+[google/gemma-2b-it](https://huggingface.co/google/gemma-2b-it):
 
 1. Create a free account at [huggingface.co](https://huggingface.co).
-2. Open the [model card for google/gemma-2b-it](https://huggingface.co/google/gemma-2b-it)
-   and click **Accept license**.
+2. Open the model card and click **Accept license**.
 3. In *Settings → Access Tokens*, create a token with **read** permission.
 4. Log in once from the terminal:
 
@@ -90,9 +91,12 @@ read token supplied:
 huggingface-cli login
 ```
 
-> No license access? Set `LLM_MODEL_ID` to any non-gated open-weight chat
-> model (e.g. `export LLM_MODEL_ID=Qwen/Qwen2.5-1.5B-Instruct`) and the same
-> code runs unchanged — no login required.
+Then switch the model with an environment variable — no code changes:
+
+```bash
+export LLM_MODEL_ID=google/gemma-2b-it   # macOS / Linux
+# Windows PowerShell: $env:LLM_MODEL_ID = "google/gemma-2b-it"
+```
 
 ## Usage
 

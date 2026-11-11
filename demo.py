@@ -27,7 +27,8 @@ def main():
 
     print("Loading model (first run downloads the weights) ...")
     model, tokenizer = load_model()
-    print("Model ready. Ask anything, or type 'quit' to exit.\n")
+    print(f"Model ready: {model.name_or_path}")
+    print("Ask anything, or type 'quit' to exit.\n")
 
     while True:
         user_input = input("You: ").strip()
