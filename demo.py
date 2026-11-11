@@ -23,6 +23,12 @@ def main():
         default=150,
         help="Maximum tokens per reply (default: %(default)s).",
     )
+    parser.add_argument(
+        "--seed",
+        type=int,
+        default=None,
+        help="Optional random seed for reproducible replies (default: random).",
+    )
     args = parser.parse_args()
 
     print("Loading model (first run downloads the weights) ...")
@@ -37,7 +43,11 @@ def main():
         if not user_input:
             continue
         response = get_response(
-            user_input, model, tokenizer, max_length=args.max_new_tokens
+            user_input,
+            model,
+            tokenizer,
+            max_length=args.max_new_tokens,
+            seed=args.seed,
         )
         print(f"Model: {response}\n")
 
