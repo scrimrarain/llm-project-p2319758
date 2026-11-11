@@ -193,4 +193,4 @@ Recording scripts are in [`videos/README.md`](videos/README.md).
 - [x] `README.md` with setup instructions and video links
 - [x] `RESULTS.md` with the five qualitative analysis points
 - [x] `requirements.txt` for a one-command install
-- [ ] Videos (`*.mp4`) recorded and linked in this README
+- [x] Videos (`*.mp4`) recorded and linked in this README
