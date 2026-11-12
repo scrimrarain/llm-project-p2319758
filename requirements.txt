@@ -9,8 +9,8 @@ accelerate>=0.30
 # on Linux/Windows with a GPU it is installed normally.
 bitsandbytes>=0.43 ; platform_system != "Darwin"
 
-# Optional web UI (uncomment to enable)
-# gradio>=4.0
+# Web UI for the language-learning app (app.py)
+gradio>=4.0
 
 # Testing
 pytest>=8.0

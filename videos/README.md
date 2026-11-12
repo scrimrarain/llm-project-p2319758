@@ -30,9 +30,9 @@
 
 ---
 
-## 视频 2 — Implementation & Demo（约 3–4 分钟）
+## 视频 2 — Implementation & Demo（约 3 分钟）
 
-**讲什么**：讲代码 + 现场交互。
+**讲什么**：讲代码 + 现场交互 + 展示应用（语言学习助手）。
 
 | 步骤 | 屏幕操作 | 口播 |
 |---|---|---|
@@ -41,7 +41,11 @@
 | 3 | 指着 `get_response()` | "这里先用 apply_chat_template 把问题包成模型训练时见过的对话格式，然后采样生成，最后只切出模型新生成的 token，把用户的问题从回答里去掉。" |
 | 4 | 终端运行 `python demo.py` | "运行根目录的 demo.py，进入交互对话。" |
 | 5 | 问 3 个问题：**factual**（What is the capital of France?）、**creative**（Write a haiku about artificial intelligence.）、**coding**（Write a Python function to calculate the factorial of a number.） | 每问一个就点评一句回答质量。 |
-| 6 | 输入 `quit` 退出 | "demo 演示完成。" |
+| 6 | 打开 `app.py` | "在这个引擎之上，我们做成了作业要求的应用——一个语言学习助手，四个工具：单词讲解、翻译、场景对话陪练（还能纠正你的语言错误）、写作语法纠错。每个工具都是同一个 get_response 配上不同的提示词。" |
+| 7 | 终端运行 `python app.py` | "运行应用：gradio 启动本地服务器并在浏览器里打开网页界面。" |
+| 8 | 浏览器展示四个标签页 | "这就是界面，四个功能标签。" |
+| 9 | 终端演示各工具输出 | "在终端里试试这些工具：单词讲解、翻译、咖啡店对话陪练，还有写作纠错。" |
+| 10 | 结束 | "这就是我们的实现、演示和应用，谢谢观看。" |
 
 ---
 

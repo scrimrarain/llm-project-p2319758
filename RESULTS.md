@@ -116,6 +116,53 @@ not the same as correctness.
 
 ---
 
+## 6. The application — Language-Learning Assistant
+
+Beyond the raw chat demo, the model powers an application layer (`app.py`):
+a **language-learning assistant** with a Gradio web UI and four tools. Each
+tool is a specialised prompt wrapped around the same `get_response()`
+engine. All outputs below are verbatim (seed 42).
+
+### 6.1 Word Helper — "serendipity"
+
+> **Meaning:** Serendipity is the delightful discovery or occurrence of
+> something pleasant and unexpected without prior planning.
+> - **Part of speech:** noun
+> **Two example sentences:**
+> 1. "I found this amazing book on my shelf while sorting through old
+>    magazines—serendipity at its finest!"
+> 2. "The unexpected gift from a friend was a perfect surprise that added to
+>    our happy holiday."
+> **Memory Tip:** Think of serendipity like finding treasure in your backyard
+> when you're not looking specifically for it. …
+
+### 6.2 Translator — "今天天气很好，我们出去散步吧。" (中文 → EN)
+
+> Today is a great day! Let's go for a walk outside.
+
+### 6.3 Conversation Practice — café scenario, "I want one coffee please"
+
+> Hello! To make your request for a coffee more specific, you could say, "I'd
+> like a cappuccino."
+>
+> Correction: No need for "please" before asking for something as simple as a
+> coffee or cappuccino. Just state what you would like directly.
+
+### 6.4 Writing Coach — "I have went to the store yesterday and buyed three apple."
+
+> Corrected version: "I went to the store yesterday and bought three apples."
+>
+> Reasons for corrections:
+> - Changed "buyed" to "bought" (past tense of "buy").
+> - Changed "apple" to "apples" (plural form).
+
+**Analysis:** all four tools produce usable, on-task output for a learner.
+This shows the same quantized engine generalises to an actual application
+simply by changing the prompt — the "application layer" is prompt design on
+top of the model API.
+
+---
+
 ## Summary
 
 | Point | Result | Verdict |

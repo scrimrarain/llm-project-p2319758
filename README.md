@@ -40,6 +40,8 @@ unit-test suite. Any other open-weight model (e.g. the assignment's example
 - Chat-template-aware prompting (`tokenizer.apply_chat_template`), so replies
   stay on-topic and correctly formatted for instruction-tuned models.
 - Interactive `demo.py` and 4 unit tests (`unittest`/`pytest`).
+- **The application**: a **Language-Learning Assistant** (`app.py`) — a Gradio
+  web UI with four tools built on the same model engine (see below).
 
 ## Requirements
 
@@ -121,6 +123,28 @@ reply = get_response("Write a haiku about AI.", model, tokenizer, max_length=100
 print(reply)
 ```
 
+## The application — Language-Learning Assistant
+
+`app.py` is the application layer required by the assignment: a
+**language-learning assistant** with a Gradio web interface. The quantized
+model is loaded once and shared by four tools, each of which is a specialised
+prompt wrapped around the same `get_response()` engine:
+
+```bash
+python app.py        # starts http://127.0.0.1:7860 and opens the browser
+```
+
+| Tab | Tool | What it does |
+|---|---|---|
+| 📖 Word Helper | `word_helper(word)` | meaning, part of speech, example sentences, memory tip |
+| 🌐 Translator | `translate(text, direction)` | natural translation between English and Chinese |
+| 🗣️ Conversation Practice | `conversation_practice(scenario, msg, lang)` | role-plays real scenarios (café, hotel, airport) in the chosen language and ends with a one-line correction of your mistakes |
+| ✍️ Writing Coach | `writing_coach(text)` | corrected version of your writing + an explanation of every change |
+
+Every tool also works from Python, e.g.
+`from app import word_helper; print(word_helper("serendipity"))`. Sample
+outputs for all four tools are recorded in [`RESULTS.md`](RESULTS.md).
+
 ## Project structure
 
 ```text
@@ -130,6 +154,7 @@ llm-project-<YourName>/
 ├── tests/
 │   └── test_model.py     # unit tests (factual, code-gen, reasoning, sanity)
 ├── demo.py               # interactive demo script
+├── app.py                # the application: language-learning assistant (Gradio)
 ├── requirements.txt      # one-command install
 ├── README.md
 ├── RESULTS.md            # the five qualitative analysis points
@@ -182,7 +207,7 @@ Three short screen recordings demonstrate the whole workflow:
 | # | File | Content |
 |---|---|---|
 | 1 | `p2319758_p2303357_LLM_Chatbot_1-installation.mp4` | Clone repo → venv → `pip install -r requirements.txt` → `huggingface-cli login` |
-| 2 | `p2319758_p2303357_LLM_Chatbot_2-implementation.mp4` | Walk through `src/model.py` → run `demo.py` → three live questions |
+| 2 | `p2319758_p2303357_LLM_Chatbot_2-implementation.mp4` | Walk through `src/model.py` → `demo.py` three live questions → the language-learning app (`app.py`, Gradio UI + the four tools) |
 | 3 | `p2319758_p2303357_LLM_Chatbot_3-testing.mp4` | `python -m unittest discover tests` → `RESULTS.md` five points live |
 
 Recording scripts are in [`videos/README.md`](videos/README.md).
